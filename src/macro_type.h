@@ -11,7 +11,7 @@
 #define GET_TYPE typeof(int) == typeof(int)
 
 
-#if 0
+#if 1
 #define ___GET_MACRO_PARAS_SIZE(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) (_0), (_1), (_2), (_3), (_4), (_5), (_6), (_7), (_8), (_9)
 
 #define __GET_MACRO_PARAS_SIZE_0() ___GET_MACRO_PARAS_SIZE(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -33,8 +33,8 @@
 #define GET_MACRO_PARAS_SIZE(...)                                 \
     _GET_MACRO_PARAS_SIZE(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__)) \
     (__VA_ARGS__)
-#endif
 
+#else
 
 #define __GET_MACRO_PARAS_SIZE_0() 
 #define __GET_MACRO_PARAS_SIZE_1(_0) sizeof(_0)
@@ -56,6 +56,7 @@
 #define GET_MACRO_PARAS_SIZE(...)                                 \
     _GET_MACRO_PARAS_SIZE(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__)) \
     (__VA_ARGS__)
+#endif
 
 #define __GET_MACRO_PARAS_SIZE_FIX_0(...) 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 #define __GET_MACRO_PARAS_SIZE_FIX_1(...) __GET_MACRO_PARAS_SIZE_1(__VA_ARGS__), 0, 0, 0, 0, 0, 0, 0, 0, 0
