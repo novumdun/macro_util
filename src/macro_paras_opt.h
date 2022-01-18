@@ -33,8 +33,12 @@
                                  MACRO_PARAS_TOTAL_7, MACRO_PARAS_TOTAL_6, MACRO_PARAS_TOTAL_5, MACRO_PARAS_TOTAL_4, MACRO_PARAS_TOTAL_3, \
                                  MACRO_PARAS_TOTAL_2, MACRO_PARAS_TOTAL_1, MACRO_PARAS_TOTAL_0)
 
+#if defined (__GNUC__)  
 #define _GET_MACRO_PARAS_TOTAL_NUM(...) \
     __GET_MACRO_PARAS_TOTAL_NUM(_0, ##__VA_ARGS__)
+#else
+    #error "Not supported the tool chain."
+#endif
 
 // get count of paras. e. GET_MACRO_PARAS_TOTAL_NUM(_0, _1) means that count of paras is 2.
 #define GET_MACRO_PARAS_TOTAL_NUM(...) \

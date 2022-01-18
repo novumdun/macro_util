@@ -53,7 +53,7 @@
 #define TEMP_VAR_NAME(line, name) _TEMP_VAR_NAME(line, name)
 
 /* */
-#if 0
+#if 1
 #define _GEN_TEMP_VARS_GEN_MEM(para_n, para) typeof(para) TEMP_VAR_NAME(__LINE__, MACRO_ADD(para_n, 1))
 #define GEN_TEMP_VARS_GEN_MEM(para_n, para) _GEN_TEMP_VARS_GEN_MEM(para_n, para),
 #define __GEN_TEMP_VARS(num, ...)                                                                          \
