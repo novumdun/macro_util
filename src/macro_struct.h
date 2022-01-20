@@ -20,18 +20,11 @@
 #define GET_STRUCT_AUTO_VAR() STRUCT_VAR(MACRO_CAT(auto, __LINE__))
 
 /* */
-#if 1
-#define _GEN_STRUCT_BODY_GEN_MEM(para_n, para) typeof(para) para
-#define GEN_STRUCT_BODY_GEN_MEM(para_n, para) _GEN_STRUCT_BODY_GEN_MEM(para_n, para);
-#define __GEN_STRUCT_BODY(num, ...)                                                                          \
-    MACRO_PARAS_ENUM_OPT(GEN_STRUCT_BODY_GEN_MEM, GET_MACRO_PARAS_START_2_N(MACRO_SUB(num, 1), __VA_ARGS__)) \
-    _GEN_STRUCT_BODY_GEN_MEM(1, GET_MACRO_PARA_N(MACRO_SUB(num, 1), __VA_ARGS__))
-#define _GEN_STRUCT_BODY(N, ...) __GEN_STRUCT_BODY(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), __VA_ARGS__)
-#define GEN_STRUCT_BODY(...) MACRO_PARAS_NOTDEAL_0PARAS(_GEN_STRUCT_BODY, __VA_ARGS__)
-#else
-#define GEN_STRUCT_BODY_GEN_MEM(para_n, para)   typeof(para) para;
-#define GEN_STRUCT_BODY(...)    MACRO_PARAS_ENUM_OPT(GEN_STRUCT_BODY_GEN_MEM, __VA_ARGS__)
-#endif
+#define _GEN_STRUCT_BODY_GEN_MEM(para_n, para)   para;
+#define GEN_STRUCT_BODY_GEN_MEM(para_n, para)   typeof(para) para,
+#define GEN_STRUCT_BODY(...)    MACRO_PARAS_ENUM_OPT_WITHOUT_LAST(_GEN_STRUCT_BODY_GEN_MEM, \
+    GET_MACRO_PARAS_START_2_N(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), MACRO_PARAS_ENUM_OPT(GEN_STRUCT_BODY_GEN_MEM, __VA_ARGS__)))
+
 
 /* */
 #define __GEN_STRUCT(name, struct_body) \
@@ -53,58 +46,26 @@
 #define TEMP_VAR_NAME(line, name) _TEMP_VAR_NAME(line, name)
 
 /* */
-#if 1
-#define _GEN_TEMP_VARS_GEN_MEM(para_n, para) typeof(para) TEMP_VAR_NAME(__LINE__, MACRO_ADD(para_n, 1))
-#define GEN_TEMP_VARS_GEN_MEM(para_n, para) _GEN_TEMP_VARS_GEN_MEM(para_n, para),
-#define __GEN_TEMP_VARS(num, ...)                                                                          \
-    MACRO_PARAS_ENUM_OPT(GEN_TEMP_VARS_GEN_MEM, GET_MACRO_PARAS_START_2_N(MACRO_SUB(num, 1), __VA_ARGS__)) \
-    _GEN_TEMP_VARS_GEN_MEM(0, GET_MACRO_PARA_N(MACRO_SUB(num, 1), __VA_ARGS__))
-#define _GEN_TEMP_VARS(N, ...) __GEN_TEMP_VARS(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), __VA_ARGS__)
-#define GEN_TEMP_VARS(...) MACRO_PARAS_NOTDEAL_0PARAS(_GEN_TEMP_VARS, __VA_ARGS__)
-#else
 #define GEN_TEMP_VARS_GEN_MEM(para_n, para)   typeof(para) TEMP_VAR_NAME(__LINE__, para_n),
-#define GEN_TEMP_VARS(...)    MACRO_PARAS_ENUM_OPT(GEN_TEMP_VARS_GEN_MEM, __VA_ARGS__)
-#endif
+#define GEN_TEMP_VARS(...)    GET_MACRO_PARAS_START_2_N(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), MACRO_PARAS_ENUM_OPT(GEN_TEMP_VARS_GEN_MEM, __VA_ARGS__))
 
 /* */
-#if 1
-#define _SET_TEMP_VARS_GEN_MEM(para_n, para) TEMP_VAR_NAME(__LINE__, MACRO_ADD(para_n, 1)) = para
-#define SET_TEMP_VARS_GEN_MEM(para_n, para) _SET_TEMP_VARS_GEN_MEM(para_n, para);
-#define __SET_TEMP_VARS(num, ...)                                                                          \
-    MACRO_PARAS_ENUM_OPT(SET_TEMP_VARS_GEN_MEM, GET_MACRO_PARAS_START_2_N(MACRO_SUB(num, 1), __VA_ARGS__)) \
-    _SET_TEMP_VARS_GEN_MEM(0, GET_MACRO_PARA_N(MACRO_SUB(num, 1), __VA_ARGS__))
-#define _SET_TEMP_VARS(N, ...) __SET_TEMP_VARS(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), __VA_ARGS__)
-#define SET_TEMP_VARS(...) MACRO_PARAS_NOTDEAL_0PARAS(_SET_TEMP_VARS, __VA_ARGS__)
-#else
 #define SET_TEMP_VARS_GEN_MEM(para_n, para)   TEMP_VAR_NAME(__LINE__, para_n) = para;
 #define SET_TEMP_VARS(...)    MACRO_PARAS_ENUM_OPT(SET_TEMP_VARS_GEN_MEM, __VA_ARGS__)
-#endif
+
 
 /* */
-#define _GET_TEMP_VARS_GEN_MEM(para_n, para) TEMP_VAR_NAME(__LINE__, MACRO_ADD(para_n, 1))
+#define _GET_TEMP_VARS_GEN_MEM(para_n, para) TEMP_VAR_NAME(__LINE__, para_n)
 #define GET_TEMP_VARS_GEN_MEM(para_n, para) _GET_TEMP_VARS_GEN_MEM(para_n, para),
-#define __GET_TEMP_VARS(num, ...)                                                                          \
-    MACRO_PARAS_ENUM_OPT(GET_TEMP_VARS_GEN_MEM, GET_MACRO_PARAS_START_2_N(MACRO_SUB(num, 1), __VA_ARGS__)) \
-    _GET_TEMP_VARS_GEN_MEM(0, GET_MACRO_PARA_N(MACRO_SUB(num, 1), __VA_ARGS__))
-#define _GET_TEMP_VARS(N, ...) __GET_TEMP_VARS(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), __VA_ARGS__)
-#define GET_TEMP_VARS(...) MACRO_PARAS_NOTDEAL_0PARAS(_GET_TEMP_VARS, __VA_ARGS__)
-
+#define GET_TEMP_VARS(...) GET_MACRO_PARAS_START_2_N(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), MACRO_PARAS_ENUM_OPT(GET_TEMP_VARS_GEN_MEM, __VA_ARGS__))
 
 #define GET_TEMP_VAR_N(n, ...) TEMP_VAR_NAME(__LINE__, n)
 
 /* */
-#if 1
-#define _SET_STRUCT_AUTO_GEN_MEM(para_n, para) MACRO_CAT(gen_auto, __LINE__).para = para
-#define SET_STRUCT_AUTO_GEN_MEM(para_n, para) _SET_STRUCT_AUTO_GEN_MEM(para_n, para);
-#define __SET_STRUCT_AUTO(num, ...)                                                                          \
-    MACRO_PARAS_ENUM_OPT(SET_STRUCT_AUTO_GEN_MEM, GET_MACRO_PARAS_START_2_N(MACRO_SUB(num, 1), __VA_ARGS__)) \
-    _SET_STRUCT_AUTO_GEN_MEM(0, GET_MACRO_PARA_N(MACRO_SUB(num, 1), __VA_ARGS__))
-#define _SET_STRUCT_AUTO(N, ...) __SET_STRUCT_AUTO(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__), __VA_ARGS__)
-#define SET_STRUCT_AUTO(...) MACRO_PARAS_NOTDEAL_0PARAS(_SET_STRUCT_AUTO, __VA_ARGS__)
-#else
-#define SET_STRUCT_AUTO_GEN_MEM(para_n, para)   MACRO_CAT(gen_auto, __LINE__).para = para;
-#define SET_STRUCT_AUTO(...)    MACRO_PARAS_ENUM_OPT(SET_STRUCT_AUTO_GEN_MEM, __VA_ARGS__)
-#endif
+#define _SET_STRUCT_AUTO_GEN_MEM(para_n, para)   para;
+#define SET_STRUCT_AUTO_GEN_MEM(para_n, para)   MACRO_CAT(gen_auto, __LINE__).para = para,
+#define SET_STRUCT_AUTO(...)    MACRO_PARAS_ENUM_OPT_WITHOUT_LAST(_SET_STRUCT_AUTO_GEN_MEM, MACRO_PARAS_ENUM_OPT(SET_STRUCT_AUTO_GEN_MEM, __VA_ARGS__))
+
 
 /* */
 #define _GET_STRUCT_AUTO_VAR_MEMBER_N(line, n, ...) MACRO_CAT(gen_auto, line).GET_TEMP_VAR_N(n, __VA_ARGS__)

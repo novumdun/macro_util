@@ -8,8 +8,6 @@
 
 #include "macro_paras_opt.h"
 
-#define GET_TYPE typeof(int) == typeof(int)
-
 
 #if 0
 #define ___GET_MACRO_PARAS_SIZE(_0, _1, _2, _3, _4, _5, _6, _7, _8, _9, ...) (_0), (_1), (_2), (_3), (_4), (_5), (_6), (_7), (_8), (_9)

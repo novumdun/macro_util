@@ -101,7 +101,7 @@ void print_str_buf(void)
         str_buf_read(&str_print_r);
         printf("%03d\t", str_print_r.order);
         printf(str_print_r.str_buf, str_print_r.para[0],
-               str_print_r.para[1], str_print_r.para[2], str_print_r.para[3]);
+               str_print_r.para[1], str_print_r.para[2], str_print_r.para[3], str_print_r.para[4]);
     }
     return;
 }
