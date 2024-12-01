@@ -76,9 +76,31 @@
     _GET_MACRO_PARAS_SIZE_FIX(GET_MACRO_PARAS_TOTAL_NUM(__VA_ARGS__)) \
     (__VA_ARGS__)
 
-
-
-#define __GET_MACRO_PARAS_TYPE_COMP(var) (__builtin_types_compatible_p(typeof(var), char) ? 1 : (__builtin_types_compatible_p(typeof(var), unsigned char) ? 2 : (__builtin_types_compatible_p(typeof(var), short) ? 3 : (__builtin_types_compatible_p(typeof(var), unsigned short) ? 4 : (__builtin_types_compatible_p(typeof(var), int) ? 5 : (__builtin_types_compatible_p(typeof(var), unsigned int) ? 6 : (__builtin_types_compatible_p(typeof(var), float) ? 7 : (__builtin_types_compatible_p(typeof(var), double) ? 8 : (__builtin_types_compatible_p(typeof(var), typeof(const char *)) ? 9 : 0)))))))))
+#define __GET_MACRO_PARAS_TYPE_COMP(var)                                                                               \
+    (__builtin_types_compatible_p(typeof(var), char)                                                                   \
+         ? 1                                                                                                           \
+         : (__builtin_types_compatible_p(typeof(var), unsigned char)                                                   \
+                ? 2                                                                                                    \
+                : (__builtin_types_compatible_p(typeof(var), short)                                                    \
+                       ? 3                                                                                             \
+                       : (__builtin_types_compatible_p(typeof(var), unsigned short)                                    \
+                              ? 4                                                                                      \
+                              : (__builtin_types_compatible_p(typeof(var), int)                                        \
+                                     ? 5                                                                               \
+                                     : (__builtin_types_compatible_p(typeof(var), unsigned int)                        \
+                                            ? 6                                                                        \
+                                            : (__builtin_types_compatible_p(typeof(var), long int)                     \
+                                                   ? 7                                                                 \
+                                                   : (__builtin_types_compatible_p(typeof(var), unsigned long int)     \
+                                                          ? 8                                                          \
+                                                          : (__builtin_types_compatible_p(typeof(var), float)          \
+                                                                 ? 9                                                   \
+                                                                 : (__builtin_types_compatible_p(typeof(var), double)  \
+                                                                        ? 10                                           \
+                                                                        : (__builtin_types_compatible_p(               \
+                                                                               typeof(var), typeof(const char *))      \
+                                                                               ? 11                                    \
+                                                                               : 0)))))))))))
 
 #define __GET_MACRO_PARAS_TYPE_0(...)
 #define __GET_MACRO_PARAS_TYPE_1(_0, ...) __GET_MACRO_PARAS_TYPE_COMP(_0)
